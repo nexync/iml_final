@@ -57,6 +57,9 @@ h2 {
 .question-container {
 	width: 30%;
 	align-items: right;
+	display: flex;
+	flex-direction: column;
+	font-size: 12pt;
 }
 
 .passage-box {
@@ -67,10 +70,7 @@ h2 {
 }
 
 .question-box {
-	height: 80vh;
-	font-size: 12pt;
-	display: flex;
-	flex-direction: column;
+	height: 65vh;
 }
 
 
@@ -86,5 +86,21 @@ h2 {
 }
 
 .question-nav {
-	margin-top: auto
+	margin-top: auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.question-ai {
+	margin-top: auto;
+	margin-bottom: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;	
+}
+
+.feedback {
+	width: 85%;
+	font-size: 10pt;
 }
