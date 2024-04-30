@@ -6,7 +6,7 @@ import { useState } from 'react'
 export const AI = ({showFeedback, feedback, show}) => {
 	const [typedText, setTypedText] = useState('')
 	const [typingIntervalId, setTypingIntervalId] = useState(null)
-	const speed = 25;
+	const speed = 50;
 	const textToType = feedback ? "Evidence suggests the summary is consistent with the article. See highlighted sections." : "Evidence suggests the summary is not consistent with the article. See highlighted sections."
 
 	const renderTooltip = (props) => (

@@ -5,43 +5,92 @@ import { Question } from '../components/Question.js';
 import { AI } from '../components/AI.js'
 import { Button } from 'react-bootstrap';
 
-const ActionPage = ({passages, loading}) => {
+const ActionPage = ({passages}) => {
   const { id } = useParams();
 
   const [passageIndex, setPassageIndex] = useState(0);
   const [highlight, setHighlight] = useState(false);
-
-  let sortedPassages = passages.sort((a, b) => a["passageNum"] > b["passageNum"])
+  const [answers, setAnswers] = useState(new Array(passages.length).fill(null))
 
   const handleNext = () => {
+    setHighlight(false)
     setPassageIndex(passageIndex+1)
   }
 
   const handlePrev = () => {
+    setHighlight(false)
     setPassageIndex(passageIndex-1)
   }
 
   const showFeedback = () => {
     setHighlight(!highlight);
   }
+
+  const setResponse = (questionNumber, value) => {
+    const newAnswers = [...answers]
+    newAnswers[questionNumber-1] = value;
+    setAnswers(newAnswers)
+  }
+
   return (
     <div class = 'page'>
-      <div class='container'>
-        <div class ='passage-container'>
-          {loading && "LOADING"}
-          {passages && <Passage passageText={sortedPassages[passageIndex]["text"]} highlight={highlight} highlightIndices={sortedPassages[passageIndex]["text-highlight"]} />}
-        </div>
-        <div class ='question-container'>
-          {loading && "LOADING"}
-          {passages && <Question questionText={sortedPassages[passageIndex]["summary"]} questionNumber={passageIndex+1}/>}
-          {id==="1" && <AI showFeedback={showFeedback} feedback={sortedPassages[passageIndex]["feedback"]} show={highlight}/> }
-          <div className='question-nav'>
-            <Button variant='outline-warning' onClick={handlePrev} disabled={passageIndex === 0}>Previous</Button> <Button variant='outline-warning' onClick={handleNext} disabled={passageIndex===passages.length-1}>Next</Button>
+      {passages.length!==0 ?
+        <div class='container'>
+          <div class ='passage-container'>
+            <Passage 
+              passageText={passages[passageIndex]["text"]} 
+              highlight={highlight} 
+              highlightIndices={id!=="2" ? passages[passageIndex]["text-highlight"] : passages[passageIndex]["random-text-highlight"]} 
+            />
           </div>
-        </div>
-      </div>
+          <div class ='question-container'>
+            <Question 
+              questionText={passages[passageIndex]["summary"]} 
+              questionNumber={passageIndex+1} 
+              setResponse={setResponse} 
+              responses={answers} 
+              highlight={highlight}
+              highlightIndices={id!=="2" ? passages[passageIndex]["summary-highlight"] : passages[passageIndex]["random-summary-highlight"]} 
+            />
+            <AI 
+              showFeedback={showFeedback} 
+              feedback={id === "1" ? passages[passageIndex]["feedback"] : passages[passageIndex]["random-feedback"]} show={highlight}
+            />
+            <div className='question-nav'>
+              <Button variant='outline-warning' onClick={handlePrev} disabled={passageIndex === 0}>Previous</Button> <Button variant='outline-warning' onClick={handleNext} disabled={passageIndex===passages.length-1}>Next</Button>
+            </div>
+          </div> 
+        </div> : 
+        <div class='container'>
+          <div class ='passage-container'>
+            <Passage 
+              passageText={"Loading"} 
+              highlight={highlight} 
+              highlightIndices={{}} 
+            />
+          </div>
+          <div class ='question-container'>
+            <Question 
+              questionText={"Loading"} 
+              questionNumber={passageIndex+1} 
+              setResponse={setResponse} 
+              responses={answers} 
+              highlightIndices={{}} 
+            />
+            <AI 
+              showFeedback={showFeedback} 
+              feedback={false} show={false}
+            />
+            <div className='question-nav'>
+              <Button variant='outline-warning' onClick={handlePrev} disabled={passageIndex === 0}>Previous</Button> <Button variant='outline-warning' onClick={handleNext} disabled={passageIndex===passages.length-1}>Next</Button>
+            </div>
+          </div> 
+        </div>      
+      }
     </div>
   );
 }
 
 export default ActionPage;
+
+//

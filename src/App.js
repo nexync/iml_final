@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import StartPage from './pages/StartPage';
 import ActionPage from './pages/ActionPage';
@@ -22,16 +22,30 @@ firebase.initializeApp({
 
 const firestore = firebase.firestore()
 
+const addPassage = (obj) => {
+  var id = "id" + Math.random().toString(16).slice(2)
+  firestore.collection("passages").doc(id).set({...obj, ...{"id": id}})
+}
+
 function App() {
   const passageRef = firestore.collection('passages')
-  const [passages, loading] = useCollectionData(passageRef, {idField: 'id'})
+  const [passages] = useCollectionData(passageRef, {idField: 'id'})
 
+  const [content, setContent] = useState([])
+
+  useEffect(()=> {
+    if (passages) {
+      let sortedPassages = passages.sort((a, b) => a["passageNum"] > b["passageNum"])
+      setContent(sortedPassages)
+    }
+  }, [passages])
+  
   return (
     <Router>
       <Routes>
         <Route path="/" element={<StartPage />} />
-        <Route path="/group/:id" element={<ActionPage passages={passages} loading={loading} />} />
-        <Route path="/admin" element={<Admin/>} />
+        <Route path="/group/:id" element={<ActionPage passages={content} />} />
+        <Route path="/admin" element={<Admin addPassage={addPassage}/>} />
       </Routes>
     </Router>
   );
