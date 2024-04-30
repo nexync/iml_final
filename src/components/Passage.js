@@ -12,7 +12,6 @@ export const Passage = ({passageText, highlight, highlightIndices}) => {
 				<br />
 			</React.Fragment>
 			));
-		console.log(text.split(/\r?\n/))
 		return lines
 	}
 

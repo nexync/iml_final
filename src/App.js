@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import StartPage from './pages/StartPage';
 import ActionPage from './pages/ActionPage';
+import FinishPage from './pages/FinishPage'
 import Admin from './pages/Admin'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -27,6 +28,11 @@ const addPassage = (obj) => {
   firestore.collection("passages").doc(id).set({...obj, ...{"id": id}})
 }
 
+const submitUser = (obj) => {
+  var id = "user" + Math.random().toString(16).slice(2)
+  firestore.collection("users").doc(id).set({...obj, ...{"id": id}})
+}
+
 function App() {
   const passageRef = firestore.collection('passages')
   const [passages] = useCollectionData(passageRef, {idField: 'id'})
@@ -45,6 +51,7 @@ function App() {
       <Routes>
         <Route path="/" element={<StartPage />} />
         <Route path="/group/:id" element={<ActionPage passages={content} />} />
+        <Route path="/finish" element={<FinishPage submitUser={submitUser}/>} />
         <Route path="/admin" element={<Admin addPassage={addPassage}/>} />
       </Routes>
     </Router>

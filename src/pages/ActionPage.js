@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { Passage } from "../components/Passage.js"
 import { Question } from '../components/Question.js';
 import { AI } from '../components/AI.js'
+
 import { Button } from 'react-bootstrap';
 
 const ActionPage = ({passages}) => {
@@ -57,7 +58,12 @@ const ActionPage = ({passages}) => {
               feedback={id === "1" ? passages[passageIndex]["feedback"] : passages[passageIndex]["random-feedback"]} show={highlight}
             />
             <div className='question-nav'>
-              <Button variant='outline-warning' onClick={handlePrev} disabled={passageIndex === 0}>Previous</Button> <Button variant='outline-warning' onClick={handleNext} disabled={passageIndex===passages.length-1}>Next</Button>
+              <Button variant='outline-warning' onClick={handlePrev} disabled={passageIndex === 0}>Previous</Button> 
+              {passageIndex===passages.length-1 ? <Button className='submit' onClick={() => {console.log(answers)}}>                
+                <Link to='/finish' state={{answers: answers}}>
+                  Submit
+                </Link>
+              </Button> : <Button variant='outline-warning' onClick={handleNext} >Next</Button> }
             </div>
           </div> 
         </div> : 
@@ -82,7 +88,9 @@ const ActionPage = ({passages}) => {
               feedback={false} show={false}
             />
             <div className='question-nav'>
-              <Button variant='outline-warning' onClick={handlePrev} disabled={passageIndex === 0}>Previous</Button> <Button variant='outline-warning' onClick={handleNext} disabled={passageIndex===passages.length-1}>Next</Button>
+              <Button variant='outline-warning' onClick={handlePrev} disabled={passageIndex === 0}>Previous</Button> {passageIndex===passages.length-1 ? <Button variant='outline-success'>
+                Submit
+              </Button> : <Button variant='outline-warning' onClick={handleNext} >Next</Button> }
             </div>
           </div> 
         </div>      
