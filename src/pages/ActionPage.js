@@ -8,7 +8,6 @@ import { Button } from 'react-bootstrap';
 
 const ActionPage = ({passages}) => {
   const { id } = useParams();
-  console.log(id)
 
   const [passageIndex, setPassageIndex] = useState(0);
   const [highlight, setHighlight] = useState(false);
