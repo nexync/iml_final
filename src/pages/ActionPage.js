@@ -8,6 +8,7 @@ import { Button } from 'react-bootstrap';
 
 const ActionPage = ({passages}) => {
   const { id } = useParams();
+  console.log(id)
 
   const [passageIndex, setPassageIndex] = useState(0);
   const [highlight, setHighlight] = useState(false);
@@ -54,6 +55,7 @@ const ActionPage = ({passages}) => {
               highlightIndices={id!=="2" ? passages[passageIndex]["summary-highlight"] : passages[passageIndex]["random-summary-highlight"]} 
             />
             <AI 
+              id={id}
               showFeedback={showFeedback} 
               feedback={id === "1" ? passages[passageIndex]["feedback"] : passages[passageIndex]["random-feedback"]} show={highlight}
             />
@@ -84,6 +86,7 @@ const ActionPage = ({passages}) => {
               highlightIndices={{}} 
             />
             <AI 
+              id={id}
               showFeedback={showFeedback} 
               feedback={false} show={false}
             />

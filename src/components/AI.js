@@ -3,7 +3,7 @@ import React from 'react'
 import {Button, Tooltip, OverlayTrigger} from 'react-bootstrap'
 import { useState } from 'react'
 
-export const AI = ({showFeedback, feedback, show}) => {
+export const AI = ({showFeedback, feedback, show, id}) => {
 	const [typedText, setTypedText] = useState('')
 	const [typingIntervalId, setTypingIntervalId] = useState(null)
 	const speed = 50;
@@ -39,7 +39,7 @@ export const AI = ({showFeedback, feedback, show}) => {
 	}
 
 	return (
-	<div className='question-ai'>
+	<div className={`question-ai ${id === '3' ? 'hidden' : ''}`}>
 		<OverlayTrigger placement="left" delay={{ show: 100, hide: 300 }} overlay={renderTooltip}>
 			<Button variant='outline-warning' onClick = {handleClick} style = {{width:"30px", height: "30px", position:"relative"}}> 
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lightbulb" viewBox="0 0 16 16" style = {{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}>
