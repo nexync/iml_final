@@ -10,7 +10,7 @@ const FinishPage = ({submitUser}) => {
   const [survey, setSurvey] = useState(new Array(3).fill(-1))
 
   const choices = ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"]
-  const questions = ["Question 1", "Question 2", "Question 3"]
+  const questions = ["The highlighting of the document and summary passage are trustworthy.", "The recommendation of the system is trustworthy.", "I frequently felt that I changed my answer after looking at the recommendation."]
 
   const handleClick = () => {
     let obj = {
