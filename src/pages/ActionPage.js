@@ -42,7 +42,7 @@ const ActionPage = ({passages}) => {
             <Passage 
               passageText={passages[passageIndex]["text"]} 
               highlight={highlight} 
-              highlightIndices={id!=="2" ? passages[passageIndex]["text-highlight"] : passages[passageIndex]["random-text-highlight"]} 
+              highlightIndices={id==="1" ? passages[passageIndex]["text-highlight"] : passages[passageIndex]["summary-highlight"]} 
             />
           </div>
           <div class ='question-container'>
@@ -51,13 +51,12 @@ const ActionPage = ({passages}) => {
               questionNumber={passageIndex+1} 
               setResponse={setResponse} 
               responses={answers} 
-              highlight={highlight}
-              highlightIndices={id!=="2" ? passages[passageIndex]["summary-highlight"] : passages[passageIndex]["random-summary-highlight"]} 
             />
             <AI 
               id={id}
               showFeedback={showFeedback} 
-              feedback={id === "1" ? passages[passageIndex]["feedback"] : passages[passageIndex]["random-feedback"]} show={highlight}
+              feedback={id === "1" ? passages[passageIndex]["feedback"] : passages[passageIndex]["random-feedback"]} 
+              show={highlight}
             />
             <div className='question-nav'>
               <Button variant='outline-warning' onClick={handlePrev} disabled={passageIndex === 0}>Previous</Button> 
@@ -69,6 +68,7 @@ const ActionPage = ({passages}) => {
             </div>
           </div> 
         </div> : 
+        // this part is for when nothing has loaded yet
         <div class='container'>
           <div class ='passage-container'>
             <Passage 
