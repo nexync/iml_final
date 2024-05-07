@@ -2,7 +2,7 @@ import React from 'react'
 
 export const Passage = ({passageText, highlight, highlightIndices}) => {
 
-	let sortedHighlight = Object.values(highlightIndices).sort((a,b) => a[0] - b[0] > 0)
+	let sortedHighlight = Object.values(highlightIndices).sort((a,b) => a[0] - b[0] > 0 ? 1 : -1)
 	
 	const splitText = (text) => {
 		let lines = text.split(/\\n/).map((line, index) => (
