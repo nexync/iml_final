@@ -41,7 +41,7 @@ function App() {
 
   useEffect(()=> {
     if (passages) {
-      let sortedPassages = passages.sort((a, b) => a["passageNum"] > b["passageNum"])
+      let sortedPassages = passages.sort((a, b) => a["passageNum"] > b["passageNum"] ? 1:-1)
       setContent(sortedPassages)
     }
   }, [passages])
