@@ -6,36 +6,42 @@ import { useState } from 'react'
 export const AI = ({showFeedback, feedback, show, id}) => {
 	const [typedText, setTypedText] = useState('')
 	const [typingIntervalId, setTypingIntervalId] = useState(null)
-	const speed = 50;
+	const speed = 30;
 	const textToType = feedback ? "Evidence suggests the summary is consistent with the article. See highlighted sections." : "Evidence suggests the summary is not consistent with the article. See highlighted sections."
 
 	const renderTooltip = (props) => (
 		<Tooltip id="button-tooltip" {...props}>
-			Show AI explainations and feedback
+			Show AI explanations and feedback
 		</Tooltip>
 	);
 
 	const handleClick = () => {
-		// clear old text
-		setTypedText('')
+		// Clear old text
+		setTypedText('');
 
-		// clear previous intervals
+		// Clear previous intervals
 		if (typingIntervalId) {
 			clearInterval(typingIntervalId);
 		}
-
-		showFeedback()
+	
 		let currentIndex = 0;
+		let currentText = ''; // Local variable to accumulate text
+	
 		const intervalId = setInterval(() => {
 			if (currentIndex < textToType.length) {
-				setTypedText((prevTypedText) => prevTypedText + textToType.charAt(currentIndex));
+				currentText += textToType.charAt(currentIndex); // Append to local string
 				currentIndex++;
+	
+				// Update state with current text
+				setTypedText(currentText);
 			} else {
 				clearInterval(intervalId);
 			}
 		}, speed);
-
+	
+		// Save the interval ID so it can be cleared if needed
 		setTypingIntervalId(intervalId);
+		showFeedback(); // Trigger feedback showing
 	}
 
 	return (
