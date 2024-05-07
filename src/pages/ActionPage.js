@@ -4,10 +4,14 @@ import { Passage } from "../components/Passage.js"
 import { Question } from '../components/Question.js';
 import { AI } from '../components/AI.js'
 
+import { useNavigate } from 'react-router-dom';
+
 import { Button } from 'react-bootstrap';
 
-const ActionPage = ({passages}) => {
+const ActionPage = ({passages, submitUser}) => {
   const { id } = useParams();
+
+  const navigate = useNavigate()
 
   const [passageIndex, setPassageIndex] = useState(0);
   const [highlight, setHighlight] = useState(false);
@@ -31,6 +35,20 @@ const ActionPage = ({passages}) => {
     const newAnswers = [...answers]
     newAnswers[questionNumber-1] = value;
     setAnswers(newAnswers)
+  }
+
+  const handleEarlySubmit = () => {
+    if (id !== "3") {
+      console.log(answers)
+    }
+    else {
+      let obj = {
+        answers: answers,
+        groupid: id,
+      }
+      submitUser(obj);
+      navigate("/")
+    }
   }
 
   return (
@@ -59,10 +77,10 @@ const ActionPage = ({passages}) => {
             />
             <div className='question-nav'>
               <Button variant='outline-warning' onClick={handlePrev} disabled={passageIndex === 0}>Previous</Button> 
-              {passageIndex===passages.length-1 ? <Button className='submit' onClick={() => {console.log(answers)}}>                
-                <Link to={id === "3" ? '/' : '/finish'} state={{answers: answers, id: id}}>
+              {passageIndex===passages.length-1 ? <Button className='submit' onClick={handleEarlySubmit}>                
+                {id !== "3" ? <Link to={'/finish'} state={{answers: answers, id: id}}>
                   Submit
-                </Link>
+                </Link> : <>Submit</>}
               </Button> : <Button variant='outline-warning' onClick={handleNext} >Next</Button> }
             </div>
           </div> 
