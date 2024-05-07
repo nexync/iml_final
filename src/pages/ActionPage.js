@@ -60,7 +60,7 @@ const ActionPage = ({passages}) => {
             <div className='question-nav'>
               <Button variant='outline-warning' onClick={handlePrev} disabled={passageIndex === 0}>Previous</Button> 
               {passageIndex===passages.length-1 ? <Button className='submit' onClick={() => {console.log(answers)}}>                
-                <Link to='/finish' state={{answers: answers}}>
+                <Link to={id === "3" ? '/' : '/finish'} state={{answers: answers}}>
                   Submit
                 </Link>
               </Button> : <Button variant='outline-warning' onClick={handleNext} >Next</Button> }
