@@ -21,9 +21,9 @@ const StartPage = () => {
       <h1 style = {{width: 800, textAlign: 'center'}}>Interpretable Machine Learning Final Project<br/> </h1>
       <h3 style = {{width: 800, textAlign: 'center', marginBottom: 50}}>Jeff Cheng, Matt Nguyen, Krithika Ramesh, Phil Mathew<br/> </h3>
       <div className='start'>
-        <Button variant='outline-light' className='groupChoice' onClick={handleGroup1}> Group 1 (Correct) </Button>
-        <Button variant='outline-light' className='groupChoice' onClick={handleGroup2}> Group 2 (Random) </Button>
-        <Button variant='outline-light' className='groupChoice' onClick={handleGroup3}> Group 3 (Control)</Button>
+        <Button variant='outline-light' className='groupChoice' onClick={handleGroup1}> Group 1 </Button>
+        <Button variant='outline-light' className='groupChoice' onClick={handleGroup2}> Group 2 </Button>
+        <Button variant='outline-light' className='groupChoice' onClick={handleGroup3}> Group 3 </Button>
       </div>
       <h4 style = {{width: 400, textAlign: 'center', margin: "auto", marginTop: 30}}>
         Please read all passages and determine if the provided summary is factually consistent with the passage.
