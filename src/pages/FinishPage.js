@@ -6,6 +6,7 @@ const FinishPage = ({submitUser}) => {
   const location = useLocation();
   const navigate = useNavigate()
   const state = location.state
+  const id = location.id
 
   const [survey, setSurvey] = useState(new Array(3).fill(-1))
 
@@ -16,6 +17,7 @@ const FinishPage = ({submitUser}) => {
     let obj = {
       answers: state,
       survey: survey,
+      id: id,
     }
     submitUser(obj);
     navigate("/")
