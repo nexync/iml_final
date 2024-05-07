@@ -50,7 +50,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<StartPage />} />
-        <Route path="/group/:id" element={<ActionPage passages={content} />} />
+        <Route path="/group/:id" element={<ActionPage passages={content} submitUser={submitUser}/>} />
         <Route path="/finish" element={<FinishPage submitUser={submitUser}/>} />
       </Routes>
     </Router>
