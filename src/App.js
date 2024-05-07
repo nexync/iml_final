@@ -52,7 +52,6 @@ function App() {
         <Route path="/" element={<StartPage />} />
         <Route path="/group/:id" element={<ActionPage passages={content} />} />
         <Route path="/finish" element={<FinishPage submitUser={submitUser}/>} />
-        <Route path="/admin" element={<Admin addPassage={addPassage}/>} />
       </Routes>
     </Router>
   );
